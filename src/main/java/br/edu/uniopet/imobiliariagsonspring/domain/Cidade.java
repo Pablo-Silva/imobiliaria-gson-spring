@@ -18,6 +18,10 @@ public class Cidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String cidade;
+    @ManyToOne
+    @JoinColumn(name = "estado_id")
+    private Estado estado;
     @OneToMany(mappedBy = "cidade")
-    private List<Fato> fatos = new ArrayList<>();
+    private List<Localizacao> localizacoes = new ArrayList<>();
+
 }

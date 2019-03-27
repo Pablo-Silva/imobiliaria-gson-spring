@@ -16,6 +16,6 @@ public class Fato implements Serializable {
     private Integer id;
     private Integer idJson;
     @ManyToOne
-    @JoinColumn(name = "cidade_id")
-    private Cidade cidade;
+    @JoinColumn(name = "localizacao_id")
+    private Localizacao localizacao;
 }
