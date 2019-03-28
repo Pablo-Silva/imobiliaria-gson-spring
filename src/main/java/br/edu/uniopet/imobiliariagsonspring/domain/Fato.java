@@ -1,6 +1,9 @@
 package br.edu.uniopet.imobiliariagsonspring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +18,14 @@ public class Fato implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer idJson;
+    @Column(columnDefinition = "TEXT")
+    private String imagem;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "localizacao_id")
     private Localizacao localizacao;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "imovel_id")
+    private Imovel imovel;
 }

@@ -16,6 +16,13 @@ public class FatoService {
     @Autowired
     private CidadeRepository cidadeRepository;
 
+    //Get entity fato to by id
+    public Fato find(Integer id) {
+        Fato obj = fatoRepository.findById(id).orElse(null);
+        return obj;
+
+    }
+
     /**
      * Insert into table Fato
      *

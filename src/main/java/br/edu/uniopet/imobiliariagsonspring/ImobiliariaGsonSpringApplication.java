@@ -1,11 +1,7 @@
 package br.edu.uniopet.imobiliariagsonspring;
 
 import br.edu.uniopet.imobiliariagsonspring.domain.*;
-import br.edu.uniopet.imobiliariagsonspring.repository.CidadeRepository;
-import br.edu.uniopet.imobiliariagsonspring.repository.EstadoRepository;
-import br.edu.uniopet.imobiliariagsonspring.repository.FatoRepository;
-import br.edu.uniopet.imobiliariagsonspring.repository.LocalizacaoRepository;
-import br.edu.uniopet.imobiliariagsonspring.service.FatoService;
+import br.edu.uniopet.imobiliariagsonspring.repository.*;
 import br.edu.uniopet.imobiliariagsonspring.util.ImobiliariaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,7 +30,8 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
     @Autowired
     private LocalizacaoRepository localizacaoRepository;
 
-    private FatoService fatoService = new FatoService();
+    @Autowired
+    private ImovelRepository imovelRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -46,6 +43,7 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
         Estado estado = new Estado();
         Cidade cidade = new Cidade();
         Localizacao localizacao = new Localizacao();
+        Imovel imovel = new Imovel();
 
         System.out.println(imobiliarias);
 
@@ -72,8 +70,8 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
                 }
             }
 
-            if(i.getCep() != null || i.getBairro() != null || i.getComplemento() != null || i.getLatitude() != null ||
-            i.getLongitude() != null || i.getEndereco() != null || i.getNumero() != null){
+            if (i.getCep() != null || i.getBairro() != null || i.getComplemento() != null || i.getLatitude() != null ||
+                    i.getLongitude() != null || i.getEndereco() != null || i.getNumero() != null) {
                 localizacao.setCep(i.getCep());
                 localizacao.setBairro(i.getBairro());
                 localizacao.setComplemento(i.getComplemento());
@@ -83,7 +81,7 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
                 localizacao.setNumero(i.getNumero());
 
                 Localizacao localizacao1 = new Localizacao();
-                localizacao1 = localizacaoRepository.findByLatitudeAndLongitude(localizacao.getLatitude(),localizacao.getLongitude());
+                localizacao1 = localizacaoRepository.findByLatitudeAndLongitude(localizacao.getLatitude(), localizacao.getLongitude());
 
                 if (localizacao1 == null) {
                     Cidade cidade1 = new Cidade();
@@ -93,11 +91,41 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
                 }
             }
 
+            if (i.getCategoria() != null || i.getStatus() != null || i.getArea_total() != null || i.getArea_privativa() != null ||
+                    i.getIptu() != null || i.getCondominio() != null || i.getPlanta() != null || i.getDependencia() != null ||
+                    i.getSacada() != null || i.getPortaria() != null || i.getElevador() != null || i.getChurrasqueira() != null ||
+                    i.getSuites() != null || i.getVagas() != null) {
+                imovel.setCategoria(i.getCategoria());
+                imovel.setStatus(i.getStatus());
+                imovel.setArea_total(i.getArea_total());
+                imovel.setArea_privativa(i.getArea_privativa());
+                imovel.setIptu(i.getIptu());
+                imovel.setCondominio(i.getCondominio());
+                imovel.setPlanta(i.getPlanta());
+                imovel.setDependencia(i.getDependencia());
+                imovel.setSacada(i.getSacada());
+                imovel.setPortaria(i.getPortaria());
+                imovel.setElevador(i.getElevador());
+                imovel.setChurrasqueira(i.getChurrasqueira());
+                imovel.setSuites(i.getSuites());
+                imovel.setVagas(i.getVagas());
+
+                Imovel imovel1 = new Imovel();
+                imovel1 = imovelRepository.findByCategoriaAndStatus(imovel.getCategoria(), imovel.getStatus());
+                if (imovel1 == null) {
+                    imovelRepository.save(imovel);
+                }
+            }
+
             if (i.getId() != null) {
                 fato.setIdJson(i.getId());
+                fato.setImagem(i.getImagem_principal());
                 Localizacao localizacao1 = new Localizacao();
-                localizacao1 = localizacaoRepository.findByLatitudeAndLongitude(localizacao.getLatitude(),localizacao.getLongitude());
+                Imovel imovel1 = new Imovel();
+                localizacao1 = localizacaoRepository.findByLatitudeAndLongitude(localizacao.getLatitude(), localizacao.getLongitude());
+                imovel1 = imovelRepository.findByCategoriaAndStatus(imovel.getCategoria(), imovel.getStatus());
                 fato.setLocalizacao(localizacao1);
+                fato.setImovel(imovel1);
                 fatoRepository.save(fato);
             }
 
@@ -105,6 +133,7 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
             estado = new Estado();
             cidade = new Cidade();
             localizacao = new Localizacao();
+            imovel = new Imovel();
         }
     }
 }

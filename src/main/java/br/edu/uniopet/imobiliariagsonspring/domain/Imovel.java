@@ -1,7 +1,18 @@
 package br.edu.uniopet.imobiliariagsonspring.domain;
 
-public class TipoImovel {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Entity
+public class Imovel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String categoria;
     private String status;
@@ -15,4 +26,8 @@ public class TipoImovel {
     private String portaria;
     private String elevador;
     private String churrasqueira;
+    private String suites;
+    private String vagas;
+    @OneToMany(mappedBy = "imovel")
+    private List<Fato> fatos = new ArrayList<>();
 }
