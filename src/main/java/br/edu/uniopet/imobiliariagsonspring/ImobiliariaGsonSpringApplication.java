@@ -109,6 +109,7 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
                 imovel.setChurrasqueira(i.getChurrasqueira());
                 imovel.setSuites(i.getSuites());
                 imovel.setVagas(i.getVagas());
+                imovel.setPreco(i.getValor_venda());
 
                 Imovel imovel1 = new Imovel();
                 imovel1 = imovelRepository.findByCategoriaAndStatus(imovel.getCategoria(), imovel.getStatus());
@@ -120,6 +121,8 @@ public class ImobiliariaGsonSpringApplication implements CommandLineRunner {
             if (i.getId() != null) {
                 fato.setIdJson(i.getId());
                 fato.setImagem(i.getImagem_principal());
+                fato.setDescricao(i.getDescricao());
+                fato.setMostrarMapa(i.getMostrar_mapa());
                 Localizacao localizacao1 = new Localizacao();
                 Imovel imovel1 = new Imovel();
                 localizacao1 = localizacaoRepository.findByLatitudeAndLongitude(localizacao.getLatitude(), localizacao.getLongitude());

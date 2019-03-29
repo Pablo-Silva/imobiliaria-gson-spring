@@ -28,6 +28,7 @@ public class Imovel {
     private String churrasqueira;
     private String suites;
     private String vagas;
+    private String preco;
     @OneToMany(mappedBy = "imovel")
     private List<Fato> fatos = new ArrayList<>();
 }

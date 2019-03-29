@@ -20,6 +20,9 @@ public class Fato implements Serializable {
     private Integer idJson;
     @Column(columnDefinition = "TEXT")
     private String imagem;
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
+    private String mostrarMapa;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "localizacao_id")
