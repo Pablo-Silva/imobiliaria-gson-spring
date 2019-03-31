@@ -1,5 +1,6 @@
 package br.edu.uniopet.imobiliariagsonspring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.UniqueElements;
 
@@ -18,9 +19,11 @@ public class Cidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String cidade;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
+    @JsonIgnore
     @OneToMany(mappedBy = "cidade")
     private List<Localizacao> localizacoes = new ArrayList<>();
 
