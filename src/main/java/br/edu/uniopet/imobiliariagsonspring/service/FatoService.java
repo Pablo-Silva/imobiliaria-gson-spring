@@ -25,8 +25,13 @@ public class FatoService {
     @Autowired
     private LocalizacaoRepository localizacaoRepository;
 
+    @Autowired LocalizacaoFilterRepository localizacaoFilterRepository;
+
     @Autowired
     private ImovelRepository imovelRepository;
+
+    @Autowired
+    private LocalizacaoService localizacaoService;
 
     //Get entity fato to by id
     public Fato find(Integer id) {
@@ -74,7 +79,7 @@ public class FatoService {
         for (Imobiliaria i : imobiliarias) {
 
             if (i.getUf() != null) {
-                estado.setNome(i.getUf());
+                estado.setNome(i.getUf().toUpperCase());
                 Estado estadoAux = new Estado();
                 estadoAux = estadoRepository.findByNome(estado.getNome());
                 if (estadoAux == null) {
@@ -83,7 +88,7 @@ public class FatoService {
             }
 
             if (i.getCidade() != null) {
-                cidade.setCidade(i.getCidade());
+                cidade.setCidade(i.getCidade().toUpperCase());
                 Cidade cidadeAux = new Cidade();
                 Estado estadoAux = new Estado();
                 cidadeAux = cidadeRepository.findByCidade(cidade.getCidade());
@@ -99,15 +104,17 @@ public class FatoService {
             if (i.getCep() != null || i.getBairro() != null || i.getComplemento() != null || i.getLatitude() != null ||
                     i.getLongitude() != null || i.getEndereco() != null || i.getNumero() != null) {
                 localizacao.setCep(i.getCep());
-                localizacao.setBairro(i.getBairro());
-                localizacao.setComplemento(i.getComplemento());
+                localizacao.setBairro(i.getBairro().toUpperCase());
+                localizacao.setComplemento(i.getComplemento().toUpperCase());
                 localizacao.setLatitude(i.getLatitude());
                 localizacao.setLongitude(i.getLongitude());
-                localizacao.setEndereco(i.getEndereco());
+                localizacao.setEndereco(i.getEndereco().toUpperCase());
                 localizacao.setNumero(i.getNumero());
 
                 Localizacao localizacaoAux = new Localizacao();
+                LocalizacaoService localizacaoService = new LocalizacaoService();
                 localizacaoAux = localizacaoRepository.findByLatitudeAndLongitude(localizacao.getLatitude(), localizacao.getLongitude());
+                //localizacaoAux = localizacaoRepository.findLocalizacaoByLatitudeContainsAndLongitudeContains(localizacao.getLatitude(), localizacao.getLongitude());
 
                 if (localizacaoAux == null) {
                     Cidade cidadeAux = new Cidade();
@@ -123,8 +130,8 @@ public class FatoService {
                     i.getIptu() != null || i.getCondominio() != null || i.getPlanta() != null || i.getDependencia() != null ||
                     i.getSacada() != null || i.getPortaria() != null || i.getElevador() != null || i.getChurrasqueira() != null ||
                     i.getSuites() != null || i.getVagas() != null) {
-                imovel.setCategoria(i.getCategoria());
-                imovel.setStatus(i.getStatus());
+                imovel.setCategoria(i.getCategoria().toUpperCase());
+                imovel.setStatus(i.getStatus().toUpperCase());
                 //Get faixa area total
                 imovel.setArea_total(faixaAreaTotal(i.getArea_total()));
                 //Get faixa area prvativa
@@ -133,15 +140,15 @@ public class FatoService {
                 imovel.setIptu(faixaIPTU(i.getIptu()));
                 //Get faixa condominio
                 imovel.setCondominio(faixaCondominio(i.getCondominio()));
-                imovel.setPlanta(i.getPlanta());
-                imovel.setDependencia(i.getDependencia());
-                imovel.setSacada(i.getSacada());
-                imovel.setPortaria(i.getPortaria());
-                imovel.setElevador(i.getElevador());
-                imovel.setChurrasqueira(i.getChurrasqueira());
+                imovel.setPlanta(i.getPlanta().toUpperCase());
+                imovel.setDependencia(i.getDependencia().toUpperCase());
+                imovel.setSacada(i.getSacada().toUpperCase());
+                imovel.setPortaria(i.getPortaria().toUpperCase());
+                imovel.setElevador(i.getElevador().toUpperCase());
+                imovel.setChurrasqueira(i.getChurrasqueira().toUpperCase());
                 imovel.setSuites(i.getSuites());
                 imovel.setVagas(i.getVagas());
-                imovel.setPreco(i.getValor_venda());
+                imovel.setPreco(precoMedio(i.getValor_venda()));
 
                 Imovel imovelAux = new Imovel();
                 imovelAux = imovelRepository.findByCategoriaAndStatus(imovel.getCategoria(), imovel.getStatus());
@@ -153,8 +160,8 @@ public class FatoService {
             if (i.getId() != null) {
                 fato.setIdJson(i.getId());
                 fato.setImagem(i.getImagem_principal());
-                fato.setDescricao(i.getDescricao());
-                fato.setMostrarMapa(i.getMostrar_mapa());
+                fato.setDescricao(i.getDescricao().toUpperCase());
+                fato.setMostrarMapa(i.getMostrar_mapa().toUpperCase());
                 fato.setPrecoMedio(precoMedio(i.getValor_venda()));
                 Localizacao localizacaoAux = new Localizacao();
                 Imovel imovelAux = new Imovel();

@@ -19,4 +19,9 @@ public class LocalizacaoService {
 
     }
 
+    public Localizacao getLocalizacao(String s, String s2){
+        Localizacao localizacao = localizacaoRepository.findByLatitudeAndLongitude(s, s2);
+        return  localizacao;
+    }
+
 }
