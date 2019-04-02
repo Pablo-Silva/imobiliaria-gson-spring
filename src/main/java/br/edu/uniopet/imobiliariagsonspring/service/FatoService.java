@@ -197,6 +197,8 @@ public class FatoService {
                     faixa = ConstantsImobiliaria.FAIXA_INDEFINIDA;
                 }
             }
+        } else {
+            faixa = ConstantsImobiliaria.FAIXA_INDEFINIDA;
         }
 
         return faixa;
@@ -222,6 +224,8 @@ public class FatoService {
                     faixa = ConstantsImobiliaria.FAIXA_INDEFINIDA;
                 }
             }
+        } else {
+            faixa = ConstantsImobiliaria.FAIXA_INDEFINIDA;
         }
 
         return faixa;
@@ -247,6 +251,8 @@ public class FatoService {
                     faixa = ConstantsImobiliaria.FAIXA_IPTU_INDEFINIDA;
                 }
             }
+        } else {
+            faixa = ConstantsImobiliaria.FAIXA_IPTU_INDEFINIDA;
         }
 
         return faixa;
@@ -272,6 +278,8 @@ public class FatoService {
                     faixa = ConstantsImobiliaria.FAIXA_CONDOMINIO_INDEFINIDA;
                 }
             }
+        } else {
+            faixa = ConstantsImobiliaria.FAIXA_CONDOMINIO_INDEFINIDA;
         }
 
         return faixa;
@@ -298,8 +306,12 @@ public class FatoService {
                 } else {
                     precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_INDEFINIDA;
                 }
+
             }
+        } else {
+            precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_INDEFINIDA;
         }
+
         return precoFaixa;
     }
 }

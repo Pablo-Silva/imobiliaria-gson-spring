@@ -2,6 +2,9 @@ package br.edu.uniopet.imobiliariagsonspring.constants;
 
 public class ConstantsImobiliaria {
 
+    //Constants JSON
+    public final static String JSON_IMOBILIARIA = "src/main/resources/json/imobiliaria.json";
+
     // Constants yes or no
     public final static String SIM = "SIM";
     public final static String NAO = "NÃO";
