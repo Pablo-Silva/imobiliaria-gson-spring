@@ -35,7 +35,12 @@ public class FatoService {
 
     }
 
-    public List<Fato> findAll(){
+    /**
+     * Lista todos os fatos
+     *
+     * @return
+     */
+    public List<Fato> findAll() {
         return fatoRepository.findAll();
     }
 
@@ -150,6 +155,7 @@ public class FatoService {
                 fato.setImagem(i.getImagem_principal());
                 fato.setDescricao(i.getDescricao());
                 fato.setMostrarMapa(i.getMostrar_mapa());
+                fato.setPrecoMedio(precoMedio(i.getValor_venda()));
                 Localizacao localizacaoAux = new Localizacao();
                 Imovel imovelAux = new Imovel();
                 localizacaoAux = localizacaoRepository.findByLatitudeAndLongitude(localizacao.getLatitude(), localizacao.getLongitude());
@@ -179,7 +185,7 @@ public class FatoService {
             areaTotal = areaTotal.replace(",", ".");
             double areaTotalDouble = Double.parseDouble(areaTotal);
             if (areaTotalDouble > 0) {
-                if (areaTotalDouble < ConstantsImobiliaria.AREA_MEDIDA_1) {
+                if (areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_1) {
                     faixa = ConstantsImobiliaria.FAIXA_AREA_TOTAL_1;
                 } else if (areaTotalDouble >= ConstantsImobiliaria.AREA_MEDIDA_1 &&
                         areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_2) {
@@ -204,7 +210,7 @@ public class FatoService {
             areaPrivativa = areaPrivativa.replace(",", ".");
             double areaTotalDouble = Double.parseDouble(areaPrivativa);
             if (areaTotalDouble > 0) {
-                if (areaTotalDouble < ConstantsImobiliaria.AREA_MEDIDA_1) {
+                if (areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_1) {
                     faixa = ConstantsImobiliaria.FAIXA_AREA_PRIVATIVA_1;
                 } else if (areaTotalDouble >= ConstantsImobiliaria.AREA_MEDIDA_1 &&
                         areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_2) {
@@ -229,7 +235,7 @@ public class FatoService {
             iPTU = iPTU.replace(",", ".");
             double areaTotalDouble = Double.parseDouble(iPTU);
             if (areaTotalDouble > 0) {
-                if (areaTotalDouble < ConstantsImobiliaria.AREA_MEDIDA_1) {
+                if (areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_1) {
                     faixa = ConstantsImobiliaria.FAIXA_IPTU_1;
                 } else if (areaTotalDouble >= ConstantsImobiliaria.AREA_MEDIDA_1 &&
                         areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_2) {
@@ -254,7 +260,7 @@ public class FatoService {
             condominio = condominio.replace(",", ".");
             double areaTotalDouble = Double.parseDouble(condominio);
             if (areaTotalDouble > 0) {
-                if (areaTotalDouble < ConstantsImobiliaria.AREA_MEDIDA_1) {
+                if (areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_1) {
                     faixa = ConstantsImobiliaria.FAIXA_CONDOMINIO_1;
                 } else if (areaTotalDouble >= ConstantsImobiliaria.AREA_MEDIDA_1 &&
                         areaTotalDouble <= ConstantsImobiliaria.AREA_MEDIDA_2) {
@@ -269,5 +275,31 @@ public class FatoService {
         }
 
         return faixa;
+    }
+
+    public static String precoMedio(String precoMedio) {
+        String precoFaixa = null;
+
+        if (precoMedio != null && precoMedio.length() > 0) {
+            if (precoMedio.contains(",")) {
+                precoMedio = precoMedio.replace(",", ".");
+                double preco = Double.parseDouble(precoMedio);
+
+                if (preco <= ConstantsImobiliaria.PRECO_MEDIO_1) {
+                    precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_1;
+                } else if (preco >= ConstantsImobiliaria.PRECO_MEDIO_1 && preco <= ConstantsImobiliaria.PRECO_MEDIO_2) {
+                    precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_2;
+                } else if (preco >= ConstantsImobiliaria.PRECO_MEDIO_2 && preco <= ConstantsImobiliaria.PRECO_MEDIO_3) {
+                    precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_3;
+                } else if (preco >= ConstantsImobiliaria.PRECO_MEDIO_3 && preco <= ConstantsImobiliaria.PRECO_MEDIO_4) {
+                    precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_4;
+                } else if (preco >= ConstantsImobiliaria.PRECO_MEDIO_4 && preco <= ConstantsImobiliaria.PRECO_MEDIO_5) {
+                    precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_5;
+                } else {
+                    precoFaixa = ConstantsImobiliaria.FAIXA_PRECO_MEDIO_INDEFINIDA;
+                }
+            }
+        }
+        return precoFaixa;
     }
 }

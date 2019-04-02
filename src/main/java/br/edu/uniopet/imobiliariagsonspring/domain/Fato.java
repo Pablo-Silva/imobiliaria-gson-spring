@@ -1,9 +1,8 @@
 package br.edu.uniopet.imobiliariagsonspring.domain;
 
-import br.edu.uniopet.imobiliariagsonspring.constants.dto.LocalizacaoDTO;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import br.edu.uniopet.imobiliariagsonspring.dto.ImovelDTO;
+import br.edu.uniopet.imobiliariagsonspring.dto.LocalizacaoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
 
 import javax.persistence.*;
@@ -44,6 +43,8 @@ public class Fato implements Serializable {
     private Cliente cliente;
     @Transient
     private LocalizacaoDTO localizacaoDTO;
+    @Transient
+    private ImovelDTO imovelDTO;
 
     public Fato() {
     }
@@ -155,6 +156,14 @@ public class Fato implements Serializable {
 
     public void setLocalizacaoDTO(LocalizacaoDTO localizacaoDTO) {
         this.localizacaoDTO = localizacaoDTO;
+    }
+
+    public ImovelDTO getImovelDTO() {
+        return imovelDTO;
+    }
+
+    public void setImovelDTO(ImovelDTO imovelDTO) {
+        this.imovelDTO = imovelDTO;
     }
 
     @Override

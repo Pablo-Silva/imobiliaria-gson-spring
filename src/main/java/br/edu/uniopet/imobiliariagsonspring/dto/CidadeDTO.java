@@ -1,4 +1,4 @@
-package br.edu.uniopet.imobiliariagsonspring.constants.dto;
+package br.edu.uniopet.imobiliariagsonspring.dto;
 
 import br.edu.uniopet.imobiliariagsonspring.domain.Estado;
 

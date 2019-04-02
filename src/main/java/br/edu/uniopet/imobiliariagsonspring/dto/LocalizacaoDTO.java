@@ -1,10 +1,4 @@
-package br.edu.uniopet.imobiliariagsonspring.constants.dto;
-
-import br.edu.uniopet.imobiliariagsonspring.domain.Cidade;
-import br.edu.uniopet.imobiliariagsonspring.domain.Fato;
-
-import java.util.ArrayList;
-import java.util.List;
+package br.edu.uniopet.imobiliariagsonspring.dto;
 
 public class LocalizacaoDTO {
 

@@ -1,6 +1,7 @@
 package br.edu.uniopet.imobiliariagsonspring.service;
 
 import br.edu.uniopet.imobiliariagsonspring.domain.Localizacao;
+import br.edu.uniopet.imobiliariagsonspring.dto.LocalizacaoDTO;
 import br.edu.uniopet.imobiliariagsonspring.repository.LocalizacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,5 @@ public class LocalizacaoService {
         return obj;
 
     }
+
 }

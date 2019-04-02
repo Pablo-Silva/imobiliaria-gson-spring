@@ -1,4 +1,4 @@
-package br.edu.uniopet.imobiliariagsonspring.constants.dto;
+package br.edu.uniopet.imobiliariagsonspring.dto;
 
 public class EstadoDTO {
 
